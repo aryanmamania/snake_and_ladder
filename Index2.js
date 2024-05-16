@@ -26,7 +26,7 @@ const snakeMap = {
     69: ["I missed my deadline!", 33],
     85: ["I was stuck but didn’t ask on allemp!", 47],
     88: ["I completed the task but did not submit it!", 28],
-    97: ["Bad quality of work!", 77],
+    99: ["Bad quality of work!", 20],
 };
 
 const winnerMap= {
