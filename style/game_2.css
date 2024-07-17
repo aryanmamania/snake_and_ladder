@@ -4,38 +4,63 @@
     --board-size-M: 480px;
     --board-size-S: 350px;
 }
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
-    /* /* background: #9bfaed;  */
+    background-position: center;
     text-align: center;
     background-repeat: repeat;
-   
-   margin: 0px;
+    margin: 0;
 }
 
 .container {
     height: 100vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 128, 0, 0.238);
+}
+
+.board-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-board {
+    width: var(--board-size-L);
+    height: var(--board-size-L);
+    display: grid;
+    grid-template-rows: repeat(10, 1fr);
+    position: relative;
+    z-index: 100;
+}
+
+.main-image {
+    width: 900px; /* Adjust to your needs */
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2; 
     
 }
+
 .dice-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 100px;
+    margin-top: 20px;
 }
 
-img {
-    width: 100px;
+.dice-container img {
+    width: 50px; 
     margin-bottom: 20px;
 }
 
-img.rolling {
+.dice-container img.rolling {
     animation: rotate 1s linear infinite;
 }
 
@@ -48,100 +73,46 @@ img.rolling {
     }
 }
 
-
-button{
+button {
     background-color: #81eedfe1;
     border: none;
     outline: none;
-   
     padding: 15px 30px;
     border-radius: 5px;
     cursor: pointer;
     color: black;
-    text-decoration:solid;
     font-size: larger;
 }
 
-#quitButton{
-    
+#quitButton {
     background-color: #c71919e1;
     border: none;
     outline: none;
-   
     padding: 10px 20px;
     border-radius: 5px;
     color: rgb(255, 255, 255);
     position: fixed;
     bottom: 10px;
     right: 10px;
-    padding: 10px 20px;
-  
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
 }
 
-
-.main-board {
-    width: var(--board-size-L);
-    height: var(--board-size-L);
-    display: grid;
-    grid-template-rows: repeat(10, 1fr);
-}
-
-.block {
-    border: 2px solid black;
-    background: #eec6f1ef;
-    text-align: center;
-    border-radius: 12px;
-    font-size: 25px;
-}
 
 .row {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
 }
 
-
-
-
 .active {
     background-image: url("../assets/LUFFY2.png");
     background-color: transparent;
     background-repeat: no-repeat;
     background-size: cover;
-    transition: 2s ease;
-    
-}
-
-.ladder,
-.snake {
-    background-image: url("..");
-    background-size: contain;
-    opacity: 95%;
-}
-
-.snake {
-    background-image: url("../assets/Designersnake.png");
-    
-}
-
-.ladder {
-    
-    background-image: url("../assets/ladder2.jpg");
-    background-size: contain;
-    background-repeat: no-repeat;    
+    transition: 1s ease;
+    background-position-y: 0cqmax ;
 }
 
 
-.winner {
-    background-image: url("../assets/winner.png"); /* Replace "path/to/winner-image.jpg" with the path to your image */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
-    
-
-}
 
 @media screen and (max-width: 768px) {
     .container {
@@ -151,9 +122,7 @@ button{
     .dice-container {
         margin-left: 0;
         margin-top: 20px;
-        
     }
-   
 
     .main-board {
         width: var(--board-size-M);
@@ -161,9 +130,9 @@ button{
         margin: 5px;
     }
 
- 
-
-   
+    .main-image {
+        width: 480px; /* Adjust to your needs */
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -173,15 +142,12 @@ button{
         margin: 5px;
     }
 
-    /* Adjust other styles for even smaller screens */
+    .main-image {
+        width: 350px; /* Adjust to your needs */
+    }
 }
 
-
-/* For alart box */
-
-
-
-.swal2-container .swal2-popup{
+.swal2-container .swal2-popup {
     display: none;
     position: relative;
     box-sizing: border-box;
@@ -193,9 +159,8 @@ button{
     border-radius: 50px;
     background: #eeeaea;
     color: #000000;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 1.5rem;
-    
 }
 
 .div:where(.swal2-container) .swal2-html-container {
@@ -214,14 +179,11 @@ button{
     font-size: 30px;
 }
 
-
-
-#about{
+#about {
     background-color: rgb(0, 0, 0);
-  }
-  
-  
-  .about__button {
+}
+
+.about__button {
     position: fixed;
     top: 10px;
     right: 10px;
@@ -231,23 +193,18 @@ button{
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    word-wrap: break-word;
     font-size: 16px;
     font-weight: bold;
     text-transform: uppercase;
     text-decoration: none;
     transition: background-color 0.3s ease;
-    
-  }
-  
-  
-  .about__button:hover{
-   
+}
+
+.about__button:hover {
     background-color: rgba(230, 156, 106, 0.986);
-  }
-  
-  
-  .about__container {
+}
+
+.about__container {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -258,21 +215,23 @@ button{
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     width: 90%;
-    max-width: 1000px; 
+    max-width: 1000px;
     text-align: left;
     display: none;
     font-size: large;
-    
-  }
-  
-  
-  
-  .about__container h2 {
+}
+
+.about__container h2 {
     margin-bottom: 10px;
-  }
-  
-  .about__container p {
+}
+
+.about__container p {
     margin-bottom: 5px;
-  }
-  
+}
+
+
+
+
+
+
   
