@@ -1,5 +1,4 @@
 const n = 10;
-
 let rollingSound = new Audio('assets/dice-142528.mp3');
 let snakebitingsound = new Audio('assets/Snake Strike - QuickSounds.com.mp3')
 let ladderClimb = new Audio('assets/Crowd Reactions Small Group Yeah  Happy - QuickSounds.com.mp3')
@@ -8,29 +7,27 @@ let winnerSound = new Audio('assets/mixkit-conference-audience-clapping-strongly
 const matrixArray = [];
 
 const ladderMap = {
-    3: ["I question everything!", 22],
-    7: ["I am regular and punctual!", 31],
-    24: ["I work proactively!", 44],
-    35: ["I work on the feedback given!", 80],
-    43: ["I completed my 6 tasks on time!", 65],
-    51: ["I participated in sessions!", 75],
-    60: ["I mastered the BDD!", 87],
-    67: ["I solved an allemp query!", 81],
+    2: ["I question everything!", 25],
+    6: ["I am regular and punctual!", 45],
+    20: ["I solved an allemp query", 59],
+    57: ["I work on the feedback given!", 96],
+    52: ["I completed my 6 tasks on time!", 72],
+    71: ["I participated in sessions!", 92]
 };
 
 const snakeMap = {
-    16: ["I came late to work!", 4],
-    39: ["It’s 10 am! I have not sent a leave application!", 19],
-    48: ["My email has typos and errors!", 29],
-    63: ["I did not cc Daily Interns Reporting!", 23],
-    69: ["I missed my deadline!", 33],
-    85: ["I was stuck but didn’t ask on allemp!", 47],
-    88: ["I completed the task but did not submit it!", 28],
-    97: ["Bad quality of work!", 77],
+    43: ["I came late to work!", 17],
+    50: [" I didnt sent my DSR/DPT today", 5],
+    56: ["My email has typos and errors!", 8],
+    73: ["I did not cc Daily Interns Reporting!", 15],
+    84: ["I missed my deadline!", 58],
+    87: ["Bad quality of work!", 49],
+    98: ["Ma'am gave me a punishment to visualize the WBS on Grafana or leave since I didn't create the test cases on time", 40],
+  
 };
 
 const winnerMap= {
-    100: ["Congratualtions", 100]
+    100: ["Congratulations", 100]
 };
 
 const LADDER_CLASS = "ladder";
@@ -62,7 +59,7 @@ function createMatrix() {
 
 function createBoard(matrixArray) {
     const board = document.querySelector(".main-board");
-    let str = "";
+    let str = ""; 
     matrixArray.map((row) => {
         str += `<div class="row">`;
         row.map((block) => {
@@ -70,7 +67,6 @@ function createBoard(matrixArray) {
                     <div class="block ${ladderMap[block] ? LADDER_CLASS : ""} ${
                         snakeMap[block] ? SNAKE_CLASS : ""
                     } ${winnerMap[block] ? Winner_CLASS: ""} ${block === 1 ? "active" : ""} " data-value=${block}>
-                    ${block}
                     </div>
                 `;
         });
@@ -79,10 +75,8 @@ function createBoard(matrixArray) {
     board.innerHTML = str;
 }
 
-
-
 function roll() {
-    const dice = document.querySelector("img");
+    const dice = document.querySelector("#dice-id");
     rollingSound.play();
     dice.classList.add("rolling");
 
@@ -92,19 +86,20 @@ function roll() {
         document.querySelector("#dice-id").setAttribute("src", `assets/dice${diceValue}.png`);
         changeCurrentPosition(diceValue);
     }, 1000);
+
 }
 
 function changeCurrentPosition(diceValue) {
     const activeBlock = document.querySelector(".active");
-    const activeBlockValue = parseInt(activeBlock.outerText);
+    const activeBlockValue = parseInt(activeBlock.dataset.value);
     let presentValue = diceValue + activeBlockValue;
 
     function playLadderSound() {
-     ladderClimb.play()   // Function to play ladder sound (removed for simplicity)
+     ladderClimb.play()   
     }
 
     function playSnakeSound() {
-        snakebitingsound.play();   // Function to play snake sound (removed for simplicity)
+        snakebitingsound.play();  
     }
 
     if (ladderMap[presentValue]) {
@@ -136,7 +131,7 @@ function changeCurrentPosition(diceValue) {
         Swal.fire({
             title: "Congratulations!",
             text: "🚀You have successfully completed InternShip!🏆🌟",
-            icon: "success ",
+            icon: "success",
             confirmButtonText: "PlayAgain",
             imageUrl: "assets/cong.webp",
             imageAlt: "Image",
@@ -152,25 +147,19 @@ function redirect() {
     window.location.replace("./index.html");
 }
 
-
 function changeActiveClass(presentValue) {
     const activeBlock = document.querySelector(".active");
     activeBlock.classList.remove("active");
     const block = document.querySelector(`[data-value="${presentValue}"]`);
     block.classList.add("active");
-   
-} 
-
-
-
+}
 
 function isGameComplete() {
     const activeBlock = document.querySelector(".active");
     const lastBlock = document.querySelector(`[data-value="${n * n}"]`);
-    lastBlock.setAttribute("src", "assets/ladder.png");
 
     if (activeBlock === lastBlock) {
-        // Play the winner sound
+     
         playWinnerSound();
         return true;
     }
@@ -178,10 +167,8 @@ function isGameComplete() {
 }
 
 function playWinnerSound() {
-
     winnerSound.play();
 }
-
 
 document.addEventListener("mousemove", highlightBlock);
 
@@ -223,8 +210,5 @@ function highlightBlock(event) {
 document.getElementById("quitButton").addEventListener("click", quitGame);
 
 function quitGame() {
-    //window.location.replace("/");
     window.close();
 }
-
-
