@@ -7,7 +7,7 @@ let winnerSound = new Audio('assets/mixkit-conference-audience-clapping-strongly
 const matrixArray = [];
 
 const ladderMap = {
-    2: ["I question everything!", 25],
+    2: ["I question everything!", 23],
     6: ["I am regular and punctual!", 45],
     20: ["I solved an allemp query", 59],
     57: ["I work on the feedback given!", 96],
@@ -212,3 +212,27 @@ document.getElementById("quitButton").addEventListener("click", quitGame);
 function quitGame() {
     window.close();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
